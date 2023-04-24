@@ -22,7 +22,7 @@ import AllAllocation from "./Pages/Credits/All Allocation/AllAllocation";
 import Api from "./Pages/API/Api";
 import Phonebook from "./Pages/Phonebook/Phonebook";
 import Dlt from "./Pages/dlt/Dlt";
-import Entity from "./Pages/dlt/Entity";
+import Entity from "./Pages/dlt/Curd6/Entity IDs/Entity";
 import SenderIDs from "./Pages/dlt/SenderIDs";
 import Template from "./Pages/dlt/Template";
 import BulkUpload from "./Pages/dlt/BulkUpload";
@@ -66,6 +66,9 @@ import Campaign1 from "./Pages/Campaign/Curd/Campaign1";
 
 import Edit from "./Pages/Campaign/Curd/Edit";
 import Create from "./Pages/Campaign/Curd/Create";
+import Create6 from "./Pages/dlt/Curd6/Entity IDs/Create6";
+import Edit6 from "./Pages/dlt/Curd6/Entity IDs/Edit6";
+import EditUser2 from "./Pages/User Management/User/EditUser2";
 
 
 function App() {
@@ -138,11 +141,14 @@ function App() {
     <Route path="/addtenantcustomer" element={<AddTenantCustomer/>}/>
     <Route path="/user" element={<User/>}>User</Route>
     <Route path="/createuser" element={<CreateUser/>}/>
+    <Route path="/edituser2" element={<EditUser2/>}/>
     
 
     {/* Dlt pages*/}
     <Route path="/dlt" element={<Dlt/>}/>
    <Route path="/entity" element={<Entity/>}/>
+   <Route path="/create6" element={<Create6/>}/>
+   <Route path="/edit6" element={<Edit6/>}/>
    <Route path="/senderids" element={<SenderIDs/>}/>
    <Route path="/template" element={<Template/>}/>
    <Route path="/bulkupload" element={<BulkUpload/>}/> 

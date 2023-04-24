@@ -3,16 +3,14 @@ import mongoose from "mongoose";
 
 // how our document look like
 const userSchema = mongoose.Schema({
-  _id: { type: String, required: true },
-  seq: { type: Number, default: 0 },
-
-  username: { type: String, required: true },
-  f_name: { type: String, required: true },
-  l_name: { type: String, required: true },
-  email: { type: String, required: true },
-  mobile: { type: Number, required: true },
-  company: { type: String, required: true },
-  role: { type: String, required: true },
+  
+  e_username: { type: String, required: true },
+  e_fname: { type: String, required: true },
+  e_lname: { type: String, required: true },
+  e_email: { type: String, required: true },
+  e_mobile: { type: Number, required: true },
+  e_companyName: { type: String, required: true },
+  e_roleType: { type: String, required: true },
 });
 
 // autoIncrement.initialize(mongoose.connection);

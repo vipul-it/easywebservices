@@ -97,10 +97,16 @@ form .fields .input-field{
 .input-field input[type="date"]:valid{
     color: #333;
 }
-.btn{
+.btnuser{
+display: flex;
+gap: 30px;
  float: right;
 }
-.btn input {
+.btnuser button{
+    margin-top: -0px;
+    height: 45px;
+}
+.btnuser input {
   height: 45px;
   width: 100px;
   border: none;
