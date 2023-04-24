@@ -1,80 +1,36 @@
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-
-const PORT= process.env.PORT || 8081;
-
-// Connection mongoDB atlas
-
-  const uri ="mongodb+srv://other-user:otheruser35@cluster0.0fgqy.mongodb.net/easywebservices?retryWrites=true&w=majority";
-
-  mongoose.connect(uri).then(()=>{
-    console.log("connected to mongodb atlas");
-  });
+import express from 'express';
+import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
+import cors from 'cors';
 
 
-const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-});
+import Connection from './database/db.js';
 
-const User = mongoose.model("User", userSchema);
+import UserRoutes from './api-route/UserRoute.js';
+import OtherRoutes from './api-route/OtherRoute.js';
 
-const server = express();
 
-server.use(cors());
-server.use(bodyParser.json());
 
-// CRUD - Create
-server.post("/api/user", async (req, res) => {
-  let user = new User();
-  user.username = req.body.username;
-  user.password = req.body.password;
-  const doc = await user.save();
+const app = express();
 
-  console.log(doc);
-  res.json(doc);
-});
 
-server.get("/api/user", async (req, res) => {
-  const docs = await User.findOne({_id: req.params.id});
-  res.json(docs._id);
-});
+dotenv.config();
 
-server.get("/user",(req, res) => {
-  res.send("hello");
-})
+// To handle HTTP POST requests in Express.js version 4 and above, 
+// you need to install the middleware module called body-parser.
+// body-parser extracts the entire body portion of an incoming request stream and exposes it on req.body.
+app.use(bodyParser.json({extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
-server.put("/api/user/:id", async (req, res) => {
-  const doc = await User.findOneAndReplace(
-    { _id: req.params.id },
-    { $set: { username: req.body.username } },
-    {
-      new: true,
-    }
-  ).then((doc) => {
-    res.json(doc);
-  });
-});
+app.use('/user', UserRoutes);
+app.use('/other', OtherRoutes);
 
-server.delete("/api/user/:id", async (req, res) => {
-  const doc = await User.findByIdAndDelete({ _id: req.params.id });
-  res.json(doc);
-});
+const USERNAME = process.env.DB_USERNAME;
+const PASSWORD = process.env.DB_PASSWORD;
 
-// server.delete("/logindata/:id", async (req, res) =>{
-//   const doc = await User.findOne({ _id: req.params.id }).then((doc) => {
-//      res.json(doc);
-//    });
-//  });
+const PORT = '8080';
 
-server.listen(PORT, () => {
-  console.log("server started",PORT);
-});
+Connection(USERNAME, PASSWORD);
+ 
+app.listen(PORT, () => console.log(`Server is running successfully on PORT ${PORT}`));
